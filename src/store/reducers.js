@@ -1,18 +1,22 @@
 import { combineReducers } from 'redux'
 import locationReducer from './location'
+import { EAT } from './actions';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
-    location: locationReducer,
+    count: count,
     ...asyncReducers
   })
 }
 
-export const injectReducer = (store, { key, reducer }) => {
-  if (Object.hasOwnProperty.call(store.asyncReducers, key)) return
-
-  store.asyncReducers[key] = reducer
-  store.replaceReducer(makeRootReducer(store.asyncReducers))
+function count(count = 0, action) {
+  switch (action.type) {
+    case EAT:
+      return count+1;
+    default:
+      return count
+  }
 }
+
 
 export default makeRootReducer

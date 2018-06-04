@@ -13,8 +13,21 @@ const createStore = (initialState = {}) => {
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = []
+  const enhancers = [window.__REDUX_DEVTOOLS_EXTENSION__()]
   let composeEnhancers = compose
+
+  let enhancer;
+  if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+    enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+      applyMiddleware(...middleware)
+    );
+  } else {
+    enhancer = compose(
+      applyMiddleware(...middleware),
+      DevTools.instrument()
+    );
+  }
+
 
   if (__DEV__) {
     if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
@@ -28,10 +41,7 @@ const createStore = (initialState = {}) => {
   const store = createReduxStore(
     makeRootReducer(),
     initialState,
-    composeEnhancers(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
+    enhancer
   )
   store.asyncReducers = {}
 

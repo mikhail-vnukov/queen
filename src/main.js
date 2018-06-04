@@ -1,11 +1,16 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import './styles/main.scss'
 
+const initialState = {
+  count: 0
+}
+
 // Store Initialization
 // ------------------------------------
-const store = createStore(window.__INITIAL_STATE__)
+const store = createStore(initialState)
 
 // Render Setup
 // ------------------------------------
@@ -13,10 +18,12 @@ const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
   const App = require('./components/App').default
-  const routes = require('./routes/index').default(store)
 
   ReactDOM.render(
-    <App store={store} routes={routes} />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
+
     MOUNT_NODE
   )
 }
@@ -43,13 +50,12 @@ if (__DEV__) {
 
     // Setup hot module replacement
     module.hot.accept([
-      './components/App',
-      './routes/index',
+      './components/App'
     ], () =>
-      setImmediate(() => {
-        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-        render()
-      })
+        setImmediate(() => {
+          ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+          render()
+        })
     )
   }
 }
