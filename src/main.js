@@ -4,13 +4,9 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import './styles/main.scss'
 
-const initialState = {
-  count: 0
-}
-
 // Store Initialization
 // ------------------------------------
-const store = createStore(initialState)
+const store = createStore()
 
 // Render Setup
 // ------------------------------------

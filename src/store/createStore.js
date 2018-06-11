@@ -4,7 +4,20 @@ import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
-const createStore = (initialState = {}) => {
+const INITIAL_STATE = {
+  body: {
+    mass: 1,
+    size: 1
+  },
+  cost: {
+    grow: 10
+  },
+  income: {
+    grow: 10
+  }
+}
+
+const createStore = (initialState = INITIAL_STATE) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
@@ -16,18 +29,17 @@ const createStore = (initialState = {}) => {
   const enhancers = [window.__REDUX_DEVTOOLS_EXTENSION__()]
   let composeEnhancers = compose
 
-  let enhancer;
+  let enhancer
   if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
     enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
       applyMiddleware(...middleware)
-    );
+    )
   } else {
     enhancer = compose(
       applyMiddleware(...middleware),
       DevTools.instrument()
-    );
+    )
   }
-
 
   if (__DEV__) {
     if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
@@ -43,6 +55,7 @@ const createStore = (initialState = {}) => {
     initialState,
     enhancer
   )
+
   store.asyncReducers = {}
 
   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime

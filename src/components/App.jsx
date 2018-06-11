@@ -1,24 +1,23 @@
 import React from 'react'
-import { browserHistory, Router } from 'react-router'
-import { Provider, connect  } from 'react-redux'
+import { connect  } from 'react-redux'
 import PropTypes from 'prop-types'
-import { eat } from '../store/actions';
+import { eat } from '../store/actions'
+import Grow from './Grow'
 
-
-
-const App = ({ count, onClick}) => (
+const App = ({ mass, onClick}) => (
   <div>
-    <label>Mass: {count}</label>
+    <label>Mass: {mass}</label>
     <button onClick={onClick}>Eat</button>
+    <Grow />
+    
   </div>
 )
 
 const mapStateToProps = (state) => {
   return {
-    count: state.count
+    mass: state.body.mass
   }
 }
-
 
 App.propTypes = {
   onClick: PropTypes.func.isRequired
