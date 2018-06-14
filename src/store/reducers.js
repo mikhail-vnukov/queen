@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { EAT, GROW, GREW } from './actions';
+import { combineReducers } from 'redux';
+import { EAT, GROW, MUTATE } from './actions';
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -8,35 +8,34 @@ export const makeRootReducer = (asyncReducers) => {
     income: income,
 
     ...asyncReducers
-  })
-}
+  });
+};
 
 const bodyreducer = (body = {}, action) => {
   switch (action.type) {
     case EAT:
-      return { ...body, mass: body.mass + body.size }
+      return { ...body, mass: body.mass + body.size };
     case GROW:
-      if (body.mass >= 10) {
-        return { mass: body.mass - 10, size: body.size + 1 }
-      }
-    /* fallthrough */
+    case MUTATE:
+      return { ...action.body };
     default:
-      return body
+      return body;
   }
-}
+};
 
 const cost = (cost = {}, action) => {
   switch (action.type) {
-    case GREW:
-      return { ...cost, grow: cost.grow * 1.1 }
-    /* fallthrough */
+    case GROW:
+      return { ...cost, grow: action.cost };
+    case MUTATE:
+      return { ...cost, mutate: action.cost };
     default:
-      return cost
+      return cost;
   }
-}
+};
 
-const income = (income = {} ) => {
-  return income
-}
+const income = (income = {}) => {
+  return income;
+};
 
-export default makeRootReducer
+export default makeRootReducer;

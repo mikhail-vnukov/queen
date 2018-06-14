@@ -21,3 +21,21 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+button {
+  width: 6rem;
+}
+
+label {
+  margin: 0 1rem;
+}
+#board {
+  width: 20rem;
+}
+
+#info {
+  margin-bottom: 1rem;
+}
+
+.action {
+}

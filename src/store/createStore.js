@@ -10,10 +10,8 @@ const INITIAL_STATE = {
     size: 1
   },
   cost: {
-    grow: 10
-  },
-  income: {
-    grow: 10
+    grow: 10,
+    mutate: 10
   }
 }
 
