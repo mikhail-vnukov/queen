@@ -1,0 +1,8 @@
+.disabled {
+    color: grey;
+    cursor: default;
+}
+
+a {
+    color: black;
+}

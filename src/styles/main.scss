@@ -1,4 +1,5 @@
 @import 'base';
+@import 'actions';
 @import 'reset';
 // @import '~bootstrap/scss/bootstrap.scss';
 
@@ -35,7 +36,4 @@ label {
 
 #info {
   margin-bottom: 1rem;
-}
-
-.action {
 }

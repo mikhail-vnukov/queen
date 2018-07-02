@@ -1,19 +1,22 @@
-import { applyMiddleware, compose, createStore as createReduxStore } from 'redux'
-import thunk from 'redux-thunk'
-import { browserHistory } from 'react-router'
-import makeRootReducer from './reducers'
-import { updateLocation } from './location'
+import { applyMiddleware, compose, createStore as createReduxStore } from 'redux';
+import thunk from 'redux-thunk';
+import { browserHistory } from 'react-router';
+import makeRootReducer from './reducers';
+import { updateLocation } from './location';
 
 const INITIAL_STATE = {
   body: {
-    mass: 1,
-    size: 1
+    mass: 100,
+    size: 1,
+    feed: 1,
+    speed: 0
   },
   cost: {
     grow: 10,
-    mutate: 10
+    mutate: 30,
+    reflexes: 100
   }
-}
+};
 
 const createStore = (initialState = INITIAL_STATE) => {
   // ======================================================
